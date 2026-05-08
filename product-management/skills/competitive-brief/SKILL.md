@@ -1,302 +1,193 @@
 ---
 name: competitive-brief
-description: Create a competitive analysis brief for one or more competitors or a feature area. Use when informing product strategy or feature prioritization, building sales battle cards, prepping board or investor materials, or deciding where to differentiate vs. achieve parity.
-argument-hint: "<competitor or feature area>"
+description: Phân tích cạnh tranh cho B2B Ad Platform Vietnam (Zalo Ads/Adtima). Trigger khi PM cần competitive landscape analysis, deep-dive 1 competitor, feature parity check, pricing benchmark, hoặc battlecard cho Sales. Bake context VN/APAC ad-tech - competitor chính Meta Ads, Google Ads, TikTok Ads, Cốc Cốc Ads, regional players (Trade Desk APAC, Criteo). LUÔN intake scope analysis trước. KHÔNG fabricate market share/pricing data - tag CẦN VERIFY và yêu cầu PM cung cấp source. Output tiếng Việt, term giữ English.
 ---
 
-# Competitive Brief
+# Competitive Brief — B2B Ad Platform VN/APAC
 
-> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
+## Mục đích
 
-Create a competitive analysis brief for one or more competitors or a feature area.
+Hỗ trợ PM ra competitive brief có cấu trúc, tránh "list feature phân biệt theo Wikipedia", tập trung vào insight actionable cho roadmap/positioning/sales.
 
-## Usage
+## Workflow 3 phase
 
-```
-/competitive-brief $ARGUMENTS
-```
+### PHASE 1 — INTAKE (BẮT BUỘC)
 
-## Workflow
+Hỏi PM 5 câu:
 
-### 1. Scope the Analysis
+1. **Mục đích brief** — Roadmap input / Sales battlecard / Positioning / Pricing benchmark / M&A scan? Output sẽ khác nhau đáng kể.
+2. **Competitor scope** — Direct competitor (Meta, Google, TikTok, Cốc Cốc cho VN) hay analogous (regional/global ad-tech)? Bao nhiêu competitor (1 deep-dive vs landscape)?
+3. **Comparison axis** — Feature parity, pricing, GTM, customer experience, tech (latency/QPS), policy, integration ecosystem? Pick top 3-5.
+4. **Data source PM có sẵn** — Public site, sales call note, customer interview, 3rd-party (SimilarWeb, Statista APAC), internal CI? Skill chỉ tổng hợp data PM cung cấp + flag CẦN VERIFY chỗ thiếu.
+5. **Audience** — Brief cho Exec (1 page narrative), Roadmap planning (table parity), Sales (battlecard talking points)?
 
-Ask the user:
-- **Competitor(s)**: Which specific competitor(s) to analyze? Or a feature area to compare across competitors?
-- **Focus**: Full product comparison, specific feature area, pricing/packaging, go-to-market, or positioning?
-- **Context**: What decision will this inform? (product strategy, sales enablement, investor/board materials, feature prioritization)
+Nếu PM không có data source rõ (câu 4) → cảnh báo: "Output sẽ có nhiều `[CẦN VERIFY]`, chất lượng phụ thuộc vào data anh feed sau."
 
-### 2. Research
+### PHASE 2 — GENERATE THEO MỤC ĐÍCH
 
-**Via web search**:
-- Product pages and feature lists
-- Pricing pages and packaging
-- Recent product launches, blog posts, and changelogs
-- Press coverage and analyst reports
-- Customer reviews and ratings (G2, Capterra, TrustRadius)
-- Job postings (signal of strategic direction)
-- Social media and community discussions
+#### Mode A — Roadmap input (feature parity matrix)
 
-If **~~knowledge base** is connected:
-- Search for existing competitive analysis documents
-- Find win/loss reports or sales battle cards
-- Pull prior competitive research
+```markdown
+# Competitive Brief — Roadmap input | <date>
 
-If **~~chat** is connected:
-- Search for competitive mentions in sales or product channels
-- Find recent deal feedback involving competitors
+**Scope**: <competitor list> | **Axis**: <comparison axis>
+**Source**: <list source PM cung cấp>
 
-### 3. Generate the Brief
+---
 
-#### Competitor Overview
-For each competitor:
-- Company summary: founding, size, funding/revenue if public, target market
-- Product positioning: how they describe themselves, who they target
-- Recent momentum: launches, funding, partnerships, customer wins
+## Executive summary (5 dòng)
+- Top 3 gap mình có vs competitor
+- Top 2 advantage mình giữ
+- 1 strategic recommendation cho roadmap
 
-#### Feature Comparison
-Compare capabilities across key areas relevant to the analysis. See **Feature Comparison Matrices** below for rating scales and matrix templates.
+## Feature parity matrix
 
-#### Positioning Analysis
-Analyze how each competitor positions themselves — target customer, category claim, key differentiator, and value proposition. See **Positioning Analysis Frameworks** below for the positioning statement template and message architecture levels.
+| Feature/Capability | Adtima/Zalo Ads | Meta Ads | Google Ads | TikTok Ads | Cốc Cốc | Gap level |
+|---|---|---|---|---|---|---|
+| Lookalike audience | ✅ | ✅ Advanced | ✅ Advanced | ✅ | ❌ | Medium |
+| Cookieless solution | [CẦN VERIFY] | ✅ Advantage+ | ✅ Privacy Sandbox | ✅ Smart+ | [CẦN VERIFY] | High |
+| ... | | | | | | |
 
-#### Strengths and Weaknesses
-For each competitor:
-- **Strengths**: Where they genuinely excel. What customers praise.
-- **Weaknesses**: Where they fall short. What customers complain about.
-- Be honest and evidence-based — do not dismiss competitors or inflate their weaknesses.
+Gap level: High / Medium / Low / Parity / Advantage
 
-#### Opportunities
-Based on the analysis:
-- Where are there gaps in competitor offerings we could exploit?
-- What are customers asking for that no one provides well?
-- Where are competitors making bets we disagree with?
-- What market shifts could advantage our approach?
+## Per-competitor deep-dive (nếu < 3 competitor)
 
-#### Threats
-- Where are competitors investing heavily?
-- What competitive moves could disrupt our position?
-- Where are we most vulnerable?
-- What would a "nightmare scenario" competitive move look like?
+### <Competitor A>
+**Position trong VN**: [CẦN VERIFY market share data]
+**Strength**: ...
+**Weakness**: ...
+**Recent move (12m)**: <feature launch / pricing change / partnership>
+**Implication cho mình**: ...
 
-#### Strategic Implications
-Tie the analysis back to product strategy:
-- What should we build, accelerate, or deprioritize based on this analysis?
-- Where should we differentiate vs. achieve parity?
-- How should we adjust positioning or messaging?
-- What should we monitor going forward?
-
-### 4. Follow Up
-
-After generating the brief:
-- Ask if the user wants to dive deeper on any section
-- Offer to create a one-page summary for executives
-- Offer to create sales battle cards for competitive deals
-- Offer to draft a "how to win against [competitor]" guide
-- Offer to set up a monitoring plan for competitive moves
-
-## Competitive Landscape Mapping
-
-### Identifying the Competitive Set
-Define competitors at multiple levels:
-
-**Direct competitors**: Products that solve the same problem for the same users in the same way.
-- These are the products your customers actively evaluate against you
-- They appear in your deals, in customer comparisons, in review site matchups
-
-**Indirect competitors**: Products that solve the same problem but differently.
-- Different approach to the same user need (e.g., spreadsheets vs dedicated project management tool)
-- Include "non-consumption" — sometimes the competitor is doing nothing or using a manual process
-
-**Adjacent competitors**: Products that do not compete today but could.
-- Companies with similar technology, customer base, or distribution that could expand into your space
-- Larger platforms that could add your functionality as a feature
-- Startups attacking a niche that could grow into your core market
-
-**Substitute solutions**: Entirely different ways users solve the underlying need.
-- Hiring a person instead of buying software
-- Using a general-purpose tool (Excel, email) instead of a specialized one
-- Outsourcing the process entirely
-
-### Landscape Map
-Position competitors on meaningful dimensions:
-
-**Common axes**:
-- Breadth vs depth (suite vs point solution)
-- SMB vs enterprise (market segment focus)
-- Self-serve vs sales-led (go-to-market approach)
-- Simple vs powerful (product complexity)
-- Horizontal vs vertical (general purpose vs industry-specific)
-
-Choose axes that reveal strategic positioning differences relevant to your market. The right axes make competitive dynamics visible.
-
-### Monitoring the Landscape
-Track competitive movements over time:
-- Product launches and feature releases (changelogs, blog posts, press releases)
-- Pricing and packaging changes
-- Funding rounds and acquisitions
-- Key hires and job postings (signal strategic direction)
-- Customer wins and losses (especially your wins/losses)
-- Analyst and review coverage
-- Partnership announcements
-
-## Feature Comparison Matrices
-
-### Building a Feature Comparison
-1. **Define capability areas**: Group features into functional categories that matter to buyers (not your internal architecture). Use the categories buyers use when evaluating.
-2. **List specific capabilities**: Under each area, list the specific features or capabilities to compare.
-3. **Rate each competitor**: Use a consistent rating scale.
-
-### Rating Scale Options
-
-**Simple (recommended for most cases)**:
-- Strong: Market-leading capability. Deep functionality, well-executed.
-- Adequate: Functional capability. Gets the job done but not differentiated.
-- Weak: Exists but limited. Significant gaps or poor execution.
-- Absent: Does not have this capability.
-
-**Detailed (for deep-dive comparisons)**:
-- 5: Best-in-class. Defines the standard others aspire to.
-- 4: Strong. Fully-featured and well-executed.
-- 3: Adequate. Meets basic needs without differentiation.
-- 2: Limited. Exists but with significant gaps.
-- 1: Minimal. Barely functional or in early beta.
-- 0: Absent. Not available.
-
-### Comparison Matrix Template
-```
-| Capability Area | Our Product | Competitor A | Competitor B |
-|----------------|-------------|-------------|-------------|
-| [Area 1]       |             |             |             |
-|   [Feature 1]  | Strong      | Adequate    | Absent      |
-|   [Feature 2]  | Adequate    | Strong      | Weak        |
-| [Area 2]       |             |             |             |
-|   [Feature 3]  | Strong      | Strong      | Adequate    |
+## Strategic recommendation
+1. **Build**: <feature gap đáng đầu tư, rationale>
+2. **Differentiate**: <area mình mạnh, double-down>
+3. **Park**: <feature competitor có nhưng không đáng đuổi>
 ```
 
-### Tips for Feature Comparison
-- Rate based on real product experience, customer feedback, and reviews — not just marketing claims
-- Features exist on a spectrum. "Has feature X" is less useful than "How well does it do X?"
-- Weight the comparison by what matters to your target customers, not by total feature count
-- Update regularly — feature comparisons get stale fast
-- Be honest about where competitors are ahead. A comparison that always shows you winning is not credible.
-- Include the "why it matters" for each capability area. Not all features matter equally to buyers.
+#### Mode B — Sales battlecard
 
-## Positioning Analysis Frameworks
+```markdown
+# Battlecard: <Adtima/Zalo Ads> vs <Competitor> | <date>
 
-### Positioning Statement Analysis
-For each competitor, extract their positioning:
+## Khi gặp customer đang dùng <Competitor>
 
-**Template**: For [target customer] who [need/problem], [Product] is a [category] that [key benefit]. Unlike [competitor/alternative], [Product] [key differentiator].
+### Đối thủ — quick view
+- Top strength: ...
+- Top weakness: ...
+- Pricing model: ...
+- Typical customer profile: ...
 
-**Sources for positioning**:
-- Homepage headline and subheadline
-- Product description on app stores or review sites
-- Sales pitch decks (sometimes leaked or shared by prospects)
-- Analyst briefing materials
-- Earnings call language (for public companies)
+### Win story (mình thắng vì)
+1. **<Strength A>**: <1-2 câu, có proof point — case study, customer quote>
+2. **<Strength B>**: ...
+3. **<Strength C>**: ...
 
-### Message Architecture Analysis
-How does each competitor communicate value?
+### Loss story (mình thua khi)
+- <Scenario>: ...
+- Mitigation/talking point: ...
 
-**Level 1 — Category**: What category do they claim? (CRM, project management, collaboration platform)
-**Level 2 — Differentiator**: What makes them different within that category? (AI-powered, all-in-one, developer-first)
-**Level 3 — Value Proposition**: What outcome do they promise? (Close deals faster, ship products faster, never miss a deadline)
-**Level 4 — Proof Points**: What evidence do they provide? (Customer logos, metrics, awards, case studies)
+### Talking points cho Sales/AM
 
-### Positioning Gaps and Opportunities
-Look for:
-- **Unclaimed positions**: Value propositions no competitor owns that matter to buyers
-- **Crowded positions**: Claims every competitor makes that have lost meaning
-- **Emerging positions**: New value propositions driven by market changes (AI, remote work, compliance)
-- **Vulnerable positions**: Claims competitors make that they cannot fully deliver on
+**Khi customer nói "Meta cheap hơn":**
+> "Meta CPM thấp nhưng eCPM hiệu quả thật phụ thuộc vào audience VN-specific. Zalo có 75M+ MAU và 1P data từ chat/OA — case study X cho thấy ARPA cao hơn Y%."  [CẦN VERIFY case study]
 
-## Win/Loss Analysis Methodology
+**Khi customer nói "Google reach rộng hơn":**
+> "Google reach toàn cầu ưu thế cho web display, nhưng cho mobile-first VN audience, Zalo có thâm nhập app/SMB self-serve mạnh hơn..."  [CẦN VERIFY data]
 
-### Conducting Win/Loss Analysis
-Win/loss analysis reveals why you actually win and lose deals. It is the most actionable competitive intelligence.
+### Đối thủ pricing (CẦN VERIFY định kỳ)
+- CPM benchmark: [CẦN VERIFY — Sales call note hoặc 3P]
+- Take rate: [CẦN VERIFY]
+- MOQ: [CẦN VERIFY]
 
-**Data sources**:
-- CRM notes from sales team (available immediately, but biased)
-- Customer interviews shortly after decision (most valuable, least biased)
-- Churned customer surveys or exit interviews
-- Prospect surveys (for lost deals)
+### Câu hỏi qualify customer
+- "Anh chị đang chạy objective nào trên <Competitor>?"
+- "Pain point lớn nhất với <Competitor> là gì?"
+- "KPI campaign hiện tại đang đo thế nào?"
+```
 
-### Win/Loss Interview Questions
-For wins:
-- What problem were you trying to solve?
-- What alternatives did you evaluate? (Reveals competitive set)
-- Why did you choose us over alternatives?
-- What almost made you choose someone else?
-- What would we need to lose for you to reconsider?
+#### Mode C — Exec brief (1-page)
 
-For losses:
-- What problem were you trying to solve?
-- What did you end up choosing? Why?
-- Where did our product fall short?
-- What could we have done differently?
-- Would you reconsider us in the future? Under what conditions?
+```markdown
+# Competitive Snapshot — <date>
 
-### Analyzing Win/Loss Data
-- Track win/loss reasons over time. Are patterns changing?
-- Segment by deal type: enterprise vs SMB, new vs expansion, industry vertical
-- Identify the top 3-5 reasons for wins and losses
-- Distinguish between product reasons (features, quality) and non-product reasons (pricing, brand, relationship, timing)
-- Calculate competitive win rates by competitor: what % of deals involving each competitor do you win?
+**TL;DR (3 dòng)**: <strategic narrative>
 
-### Common Win/Loss Patterns
-- **Feature gap**: Competitor has a specific capability you lack that is a dealbreaker
-- **Integration advantage**: Competitor integrates with tools the buyer already uses
-- **Pricing structure**: Not always cheaper — sometimes different pricing model (per-seat vs usage-based) fits better
-- **Incumbent advantage**: Buyer sticks with what they have because switching cost is too high
-- **Sales execution**: Better demo, faster response, more relevant case studies
-- **Brand/trust**: Buyer chooses the safer or more well-known option
+---
 
-## Market Trend Identification
+## Landscape (1 đoạn)
+<Position của mình + competitor chính trong thị trường VN B2B ad>
 
-### Sources for Trend Identification
-- **Industry analyst reports**: Gartner, Forrester, IDC for market sizing and trends
-- **Venture capital**: What are VCs funding? Investment themes signal where smart money sees opportunity.
-- **Conference themes**: What are industry events focusing on? What topics draw the biggest audiences?
-- **Technology shifts**: New platforms, APIs, or capabilities that enable new product categories
-- **Regulatory changes**: New regulations that create requirements or opportunities
-- **Customer behavior changes**: How are user expectations evolving? (e.g., mobile-first, AI-assisted, privacy-conscious)
-- **Talent movement**: Where are top people going? What skills are in demand?
+## Top 3 threat
+1. ...
+2. ...
+3. ...
 
-### Trend Analysis Framework
-For each trend identified:
+## Top 3 opportunity
+1. ...
+2. ...
+3. ...
 
-1. **What is changing?**: Describe the trend clearly and specifically
-2. **Why now?**: What is driving this change? (Technology, regulation, behavior, economics)
-3. **Who is affected?**: Which customer segments or market categories?
-4. **What is the timeline?**: Is this happening now, in 1-2 years, or 3-5 years?
-5. **What is the implication for us?**: How should this influence our product strategy?
-6. **What are competitors doing?**: How are competitors responding to this trend?
+## Recommended action (next 90 days)
+- [ ] ...
+- [ ] ...
 
-### Separating Signal from Noise
-- **Signals**: Trends backed by behavioral data, growing investment, regulatory action, or customer demand
-- **Noise**: Trends backed only by media hype, conference buzz, or competitor announcements without customer traction
-- Test trends against your own customer data: are YOUR customers asking for this or experiencing this change?
-- Be wary of "trend of the year" hype cycles. Many trends that dominate industry conversation do not materially affect your customers for years.
+## Source & limitation
+- Data tin cậy: <source>
+- Data CẦN VERIFY: <area>
+- Refresh cadence đề xuất: monthly / quarterly
+```
 
-### Strategic Response Options
-For each significant trend:
-- **Lead**: Invest early and try to define the category or approach. High risk, high reward.
-- **Fast follow**: Wait for early signals of customer demand, then move quickly. Lower risk but harder to differentiate.
-- **Monitor**: Track the trend but do not invest yet. Set triggers for when to act.
-- **Ignore**: Explicitly decide this trend is not relevant to your strategy. Document why.
+### PHASE 3 — REVIEW
 
-The right response depends on: your competitive position, your customer base, your resources, and how fast the trend is moving.
+AI tự gutcheck:
 
-## Output Format
+- **Source coverage**: nếu > 30% claim ở `[CẦN VERIFY]` → warn "Brief này độ tin cậy thấp, PM cần thu thập thêm data."
+- **Anchoring bias**: nếu AI thấy bản thân có xu hướng tô hồng Adtima → flag.
+- **Outdated risk**: ad-tech move nhanh. Output luôn có "Refresh cadence: <suggested>".
 
-Use tables for feature comparisons. Use clear headers for each section. Keep the strategic implications section concise and actionable — this is where the value is for the reader.
+## GUARDRAILS
 
-## Tips
+### G1. NO FABRICATE COMPETITIVE DATA
+- KHÔNG tự sinh market share, ARPA competitor, pricing CPM/CPC, take rate, MAU/DAU competitor.
+- Nếu PM không có data → `[CẦN VERIFY — source: ?]`.
+- Industry benchmark generic (vd. "Meta CPM ở SEA ~$X") → tag `[GIẢ ĐỊNH benchmark industry, year YYYY]` và yêu cầu PM verify.
 
-- Be honest about competitor strengths. Dismissing competitors makes the analysis useless.
-- Focus on what matters to customers, not what matters to product teams. Customers do not care about architecture elegance.
-- Pricing is hard to compare fairly. Note the caveats (different packaging, usage-based vs seat-based, enterprise custom pricing).
-- Job postings are underrated competitive intelligence. A competitor hiring ML engineers signals a strategic direction.
-- Customer reviews are gold. They reveal what real users love and hate, unfiltered by marketing.
-- The most valuable part of competitive analysis is the "so what" — the strategic implications. Do not skip this.
-- Competitive analysis has a shelf life. Note the date and flag areas that change quickly.
+### G2. NO ANCHORING TO ADTIMA SIDE
+- Phân tích phải fair. Output phải có ít nhất 1 mục Adtima yếu vs competitor (nếu thật sự có).
+- Nếu PM input chỉ toàn lợi điểm Adtima → AI hỏi "Còn weakness nào không?".
+
+### G3. CITE ALL CLAIM
+- Mọi data point quan trọng phải có source: PM-provided / public / 3P.
+- Format: `<claim> [source: SimilarWeb 2025-Q3]` hoặc `[CẦN VERIFY]`.
+
+## Competitor reference (VN/APAC ad-tech)
+
+Default landscape (PM có thể thêm/bớt):
+
+**Direct VN**:
+- Zalo Ads / Adtima (mình)
+- Meta Ads (Facebook, Instagram)
+- Google Ads (Search, Display, YouTube)
+- TikTok Ads (TikTok For Business)
+- Cốc Cốc Ads
+- VNG ecosystem (Zing MP3 Ads, ZaloPay Ads)
+
+**Analogous APAC/Global**:
+- Trade Desk (DSP)
+- Criteo (retargeting / commerce)
+- LINE Ads (Japan/Thailand)
+- KakaoTalk Ads (Korea)
+- Naver Ads (Korea)
+- ShareChat / Moj (India)
+
+**Tech category** (B2B platform tooling):
+- AppsFlyer / Adjust / Branch (MMP)
+- MOAT / IAS / DV (verification)
+- LiveRamp (data clean room)
+
+## Convention
+
+- **Source tag**: `[source: <name>, <date>]` hoặc `[CẦN VERIFY]`.
+- **Confidence**: High (≥ 2 source độc lập) / Medium (1 source) / Low (suy luận).
+- **Recency**: Mọi data cũ > 6 tháng → tag `[may be outdated]`.

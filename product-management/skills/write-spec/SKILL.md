@@ -1,250 +1,310 @@
 ---
 name: write-spec
-description: Write a feature spec or PRD from a problem statement or feature idea. Use when turning a vague idea or user request into a structured document, scoping a feature with goals and non-goals, defining success metrics and acceptance criteria, or breaking a big ask into a phased spec.
-argument-hint: "<feature or problem statement>"
+description: Viết PRD (Product Requirement Document) cho B2B Ad Platform Vietnam (Zalo Ads/Adtima). Trigger khi user cần tạo product spec, feature spec, requirement doc cho campaign objective mới, targeting capability mới, billing model mới, integration DSP/SSP/MMP, dashboard reporting feature, hoặc bất kỳ feature/initiative nào trên ad platform. Hỗ trợ 2 mode - Lite cho feature ≤ 2 sprints single team, Full cho strategic bet multi-quarter cross-team. LUÔN intake 5-7 câu critical trước khi generate. KHÔNG fabricate số liệu - nếu PM không cung cấp data thì tag TBD. Output tiếng Việt, field technical giữ English.
 ---
 
-# Write Spec
+# Write Spec — B2B Ad Platform PRD
 
-> If you see unfamiliar placeholders or need to check which tools are connected, see [CONNECTORS.md](../../CONNECTORS.md).
+## Mục đích
 
-Write a feature specification or product requirements document (PRD).
+Hỗ trợ Senior PM ở B2B Ad Platform (Zalo Ads/Adtima context) viết PRD chuẩn, tối ưu thời gian dev/QC bằng Acceptance Criteria format Given/When/Then và test scenarios explicit.
 
-## Usage
+## Workflow 3 phase
 
+### PHASE 1 — INTAKE (BẮT BUỘC, không bỏ qua)
+
+Trước khi generate, hỏi PM 7 câu critical. Nếu PM trả lời thiếu, KHÔNG generate, hỏi tiếp đến khi đủ:
+
+1. **Problem statement & evidence** — Vấn đề là gì? Có data/customer quote/incident gì làm bằng chứng?
+2. **Hypothesis** — Nếu giải quyết, kỳ vọng tác động gì (định lượng được)?
+3. **Target user/advertiser** — Persona chính? Advertiser tier nào (Brand T1, Agency, SMB self-serve)? Publisher 1P hay 3P?
+4. **Success metric** — Primary metric + 1-2 guardrail. Baseline hiện tại bao nhiêu?
+5. **Constraint** — Timeline cứng? Eng cost cap? Compliance constraint (PDPL VN, Nghị định 13/2023)?
+6. **Anti-goal** — Cái gì explicit KHÔNG làm trong scope này?
+7. **Mode** — PM muốn Lite (≤ 2 sprints, single team) hay Full (multi-quarter, cross-team)?
+
+Nếu PM không có data cho câu 1-4: tag `[CẦN VERIFY]` hoặc `[CẦN BASELINE]` trong output, KHÔNG tự fabricate.
+
+### PHASE 2 — GENERATE THEO MODE
+
+#### LITE MODE (feature ≤ 2 sprints, single team)
+
+```markdown
+# PRD: <Feature Name>
+
+**PM**: <name> | **Eng Lead**: TBD | **Designer**: TBD
+**Status**: Draft | **Last updated**: <YYYY-MM-DD>
+**Mode**: Lite
+
+---
+
+## WHY
+
+### 1. Problem statement
+<Vấn đề user/advertiser đang gặp, 3-5 dòng>
+**Evidence**: <data point / customer quote / incident link>
+
+### 2. Hypothesis & Business impact
+**Hypothesis**: Nếu <làm X>, thì <kỳ vọng Y> bởi vì <lý do Z>.
+**Expected impact**: <định lượng — revenue, ARPA, retention, etc.> [CẦN VERIFY nếu PM không có baseline]
+
+### 3. Success metric
+- **Primary**: <metric, baseline → target, measurement window>
+- **Guardrail**: <metric không được giảm dưới ngưỡng>
+
+---
+
+## WHAT
+
+### 4. User stories
+- As a <advertiser tier / publisher / internal user>, I want <action>, so that <outcome>.
+- (3-5 user story chính)
+
+### 5. Scope
+**In-scope**:
+- ...
+
+**Out-of-scope** (explicit):
+- ...
+
+### 6. Acceptance Criteria
+Format Given/When/Then. Mỗi user story → 2-4 AC.
+
+**AC-1.1**: Given <precondition>, When <action>, Then <expected result>.
+**AC-1.2**: ...
+
+---
+
+## HOW
+
+### 7. Functional spec
+- UI flow / screen behavior (đính kèm wireframe link nếu có)
+- API behavior / data flow
+- Đủ chi tiết để dev estimate Story Points
+
+### 8. Non-functional
+- Latency / performance budget
+- Error handling
+- Edge case (null, timeout, concurrent, fraud signal)
+
+### 9. Test scenarios
+- Happy path: ...
+- Edge case: ...
+- Negative case: ...
+- Compliance check: PDPL VN consent, brand safety filter
+
+---
+
+## ROLLOUT
+
+### 10. Release plan
+- Feature flag: <name>
+- Rollout %: <internal → 1% → 10% → 100%>
+- Rollback trigger: <metric breach>
+- Monitoring: <dashboard link / alert>
+
+### 11. Open questions & dependencies
+- [ ] <Question for Eng/Legal/Sales>
+- [ ] <Dependency on team X>
 ```
-/write-spec $ARGUMENTS
+
+#### FULL MODE (strategic bet, multi-quarter, cross-team)
+
+```markdown
+# PRD: <Initiative Name>
+
+**Owner**: <PM> | **Sponsor**: <Head of Product / GM>
+**Eng Lead**: TBD | **Designer**: TBD | **Data**: TBD | **Legal review**: TBD
+**Status**: Draft | **Last updated**: <YYYY-MM-DD>
+**Mode**: Full
+**Tier**: Strategic Bet
+
+---
+
+## WHY
+
+### 1. Context & market signal
+- VN/APAC ad-tech landscape relevant
+- Competitive context (Meta, Google, TikTok, Cốc Cốc, regional players)
+- Trigger event (advertiser feedback, market shift, regulatory)
+
+### 2. Problem & opportunity
+- Problem dài hạn cần giải quyết
+- Size of opportunity [CẦN VERIFY — PM cung cấp TAM/SAM/SOM hoặc tag CẦN VERIFY]
+
+### 3. Goals, hypothesis, North Star + guardrails
+- **North Star**: <metric>, baseline → target, timeline
+- **Hypothesis**: ...
+- **Leading indicators**: ...
+- **Lagging indicators**: ...
+- **Guardrails**: <metric không được giảm>
+
+### 4. Anti-goals (explicit không làm)
+- ...
+
+---
+
+## WHAT
+
+### 5. Stakeholders & personas
+| Persona | Tier/role | Pain point | Win condition |
+|---|---|---|---|
+| Advertiser Brand T1 | Enterprise direct | ... | ... |
+| Agency | Mid-market | ... | ... |
+| SMB self-serve | Long tail | ... | ... |
+| Publisher 1P | Zalo property | ... | ... |
+| Internal Sales/AM | Commercial | ... | ... |
+
+### 6. User stories / use cases (theo persona)
+- (5-15 user story, group by persona)
+
+### 7. Functional requirements
+- **Campaign setup**: objective, targeting, creative, budget, schedule
+- **Delivery & pacing**: bid logic, frequency cap, dayparting
+- **Billing & reconciliation**: invoice cycle, dispute flow, write-off
+- **Reporting**: advertiser-facing + publisher report + internal BI
+
+### 8. Acceptance Criteria
+Per requirement, format Given/When/Then. Có thể dài → break theo functional area.
+
+**AC for Campaign Setup**:
+- AC-CS-1: Given <...>, When <...>, Then <...>
+- ...
+
+**AC for Delivery**:
+- ...
+
+### 9. Scope
+**Phase 1 (Alpha internal)**:
+**Phase 2 (Managed Beta T1)**:
+**Phase 3 (GA)**:
+**Out of scope (this initiative)**:
+
+---
+
+## HOW
+
+### 10. Non-functional
+- Ad serving latency: p95 < <ms>, p99 < <ms>
+- QPS target: <X> peak
+- Availability: 99.9% / 99.95%
+- Brand safety: < <X>% incident rate
+- IVT: < <X>% (per MRC standard)
+
+### 11. Targeting & inventory
+- Taxonomy mapping (IAB v3.0 / custom)
+- Frequency cap rule
+- Cookieless / 1P data strategy
+
+### 12. Pricing & billing model
+- Pricing model: CPM / CPC / CPV / CPA / CPL
+- MOQ: <amount> [CẦN VERIFY pricing committee]
+- Take rate: <%> [GIẢ ĐỊNH nếu chưa confirm]
+- Billing cycle: net 30 / net 45
+
+### 13. Creative & policy
+- Format spec (size, weight, duration)
+- Policy review SLA: <X hours>
+- Auto-reject vs manual review rule
+
+### 14. Integration
+- DSP/SSP partner: <list>
+- MMP: AppsFlyer / Adjust / Branch
+- 3P verification: MOAT / IAS / DV
+- API contract: <link to spec>
+
+### 15. Data model & API contract
+- Entity: Campaign / LineItem / Creative / Insertion Order
+- Key field schema
+- API endpoint list (link to OpenAPI doc)
+
+### 16. Test plan / QC scenarios
+- Test plan derived from AC ở section 8
+- Integration test với DSP/SSP partner
+- Load test scenario
+- Compliance test: PDPL VN, MRC viewability, brand safety
+
+### 17. Risk & mitigation
+| Risk | Impact | Likelihood | Mitigation |
+|---|---|---|---|
+| Fraud (IVT spike) | High | Medium | IAS/DV integration trước GA |
+| Brand safety incident | High | Low | Pre-bid filtering + post-bid monitoring |
+| PDPL VN compliance (Nghị định 13/2023) | High | Medium | Legal review trước Beta |
+| ... | | | |
+
+---
+
+## ROLLOUT
+
+### 18. Phased rollout
+- **Alpha (internal)**: <date>, scope: <X advertisers internal>
+- **Managed Beta**: <date>, scope: <Y T1 advertisers>, AM hand-hold
+- **GA**: <date>, full self-serve
+
+### 19. Migration / deprecation
+- Feature thay thế cái nào không?
+- Deprecation timeline cho legacy
+- Customer communication plan
+
+### 20. Monitoring & success review
+- Dashboard: <link Superset/Qlik>
+- Review cadence: weekly trong 4 tuần đầu, monthly sau đó
+- Success/kill criteria: <explicit threshold>
+
+---
+
+## APPENDIX
+
+### 21. Wireframes / mockups
+<Figma link>
+
+### 22. Open questions & dependencies
+- [ ] <Question for Legal>
+- [ ] <Dependency on Data team>
+- [ ] <Cross-team coordination needed>
+
+### 23. Glossary
+- **eCPM**: effective Cost Per Mille
+- **IVT**: Invalid Traffic
+- **MRC**: Media Rating Council
+- ... (term mới với reader)
 ```
 
-## Workflow
+### PHASE 3 — REVIEW & ITERATE
 
-### 1. Understand the Feature
+Sau khi generate, hỏi PM:
+- Có section nào AI giả định nhưng PM muốn replace bằng data thật không?
+- Cần expand AC cho area nào (thường Eng request thêm AC ở complex area)?
+- Stakeholder profile output cho ai (skill khác `/stakeholder-update` xử lý)?
 
-Ask the user what they want to spec. Accept any of:
-- A feature name ("SSO support")
-- A problem statement ("Enterprise customers keep asking for centralized auth")
-- A user request ("Users want to export their data as CSV")
-- A vague idea ("We should do something about onboarding drop-off")
+## GUARDRAILS (BẮT BUỘC tuân thủ)
 
-### 2. Gather Context
+### G1. NO FABRICATE NUMBERS
+- KHÔNG tự sinh số market share, ARPA, conversion rate, CTR, eCPM, cost.
+- Nếu PM không cung cấp data → ghi `TBD — PM fill từ Superset/Qlik/research/Customer interview`.
+- Nếu cần benchmark → tag `[GIẢ ĐỊNH benchmark industry]` và yêu cầu PM verify.
 
-Ask the user for the following. Be conversational — do not dump all questions at once. Ask the most important ones first and fill in gaps as you go:
+### G2. MARK ASSUMPTION EXPLICIT
+- Mọi assumption không có evidence → `[GIẢ ĐỊNH]`.
+- Mọi metric không có baseline → `[CẦN BASELINE]`.
+- Mọi yêu cầu cần legal/compliance check → `[CẦN LEGAL REVIEW]`.
 
-- **User problem**: What problem does this solve? Who experiences it?
-- **Target users**: Which user segment(s) does this serve?
-- **Success metrics**: How will we know this worked?
-- **Constraints**: Technical constraints, timeline, regulatory requirements, dependencies
-- **Prior art**: Has this been attempted before? Are there existing solutions?
+### G3. INTAKE FIRST
+- KHÔNG generate khi 7 câu intake chưa đủ.
+- Nếu PM nói "skip intake, viết luôn" → vẫn generate nhưng output đầy `[CẦN VERIFY]` placeholder và warn PM ở đầu doc.
 
-### 3. Pull Context from Connected Tools
+## Convention
 
-If **~~project tracker** is connected:
-- Search for related tickets, epics, or features
-- Pull in any existing requirements or acceptance criteria
-- Identify dependencies on other work items
+- **Ngôn ngữ**: Tiếng Việt.
+- **Term technical giữ English**: Sprint, Story Points, Epic, AC, eCPM, fill rate, viewability, IVT, brand safety, cookieless, frequency cap, OKR, North Star, MRC, OpenRTB, DSP, SSP, MMP, MOQ, take rate.
+- **AC format**: Given/When/Then, đánh số AC-X.Y.
+- **Date**: ISO YYYY-MM-DD.
+- **Compliance reference**: PDPL VN, Nghị định 13/2023/NĐ-CP, MRC, IAB Tech Lab.
 
-If **~~knowledge base** is connected:
-- Search for related research documents, prior specs, or design docs
-- Pull in relevant user research findings
-- Find related meeting notes or decision records
+## Anti-pattern (KHÔNG làm)
 
-If **~~design** is connected:
-- Pull related mockups, wireframes, or design explorations
-- Search for design system components relevant to the feature
-
-If these tools are not connected, work entirely from what the user provides. Do not ask the user to connect tools — just proceed with available information.
-
-### 4. Generate the PRD
-
-Produce a structured PRD with these sections. See **PRD Structure** below for detailed guidance on what each section should contain.
-
-- **Problem Statement**: The user problem, who is affected, and impact of not solving it (2-3 sentences)
-- **Goals**: 3-5 specific, measurable outcomes tied to user or business metrics
-- **Non-Goals**: 3-5 things explicitly out of scope, with brief rationale for each
-- **User Stories**: Standard format ("As a [user type], I want [capability] so that [benefit]"), grouped by persona
-- **Requirements**: Categorized as Must-Have (P0), Nice-to-Have (P1), and Future Considerations (P2), each with acceptance criteria
-- **Success Metrics**: Leading indicators (change quickly) and lagging indicators (change over time), with specific targets
-- **Open Questions**: Unresolved questions tagged with who needs to answer (engineering, design, legal, data)
-- **Timeline Considerations**: Hard deadlines, dependencies, and phasing
-
-### 5. Review and Iterate
-
-After generating the PRD:
-- Ask the user if any sections need adjustment
-- Offer to expand on specific sections
-- Offer to create follow-up artifacts (design brief, engineering ticket breakdown, stakeholder pitch)
-
-## PRD Structure
-
-### Problem Statement
-- Describe the user problem in 2-3 sentences
-- Who experiences this problem and how often
-- What is the cost of not solving it (user pain, business impact, competitive risk)
-- Ground this in evidence: user research, support data, metrics, or customer feedback
-
-### Goals
-- 3-5 specific, measurable outcomes this feature should achieve
-- Each goal should answer: "How will we know this succeeded?"
-- Distinguish between user goals (what users get) and business goals (what the company gets)
-- Goals should be outcomes, not outputs ("reduce time to first value by 50%" not "build onboarding wizard")
-
-### Non-Goals
-- 3-5 things this feature explicitly will NOT do
-- Adjacent capabilities that are out of scope for this version
-- For each non-goal, briefly explain why it is out of scope (not enough impact, too complex, separate initiative, premature)
-- Non-goals prevent scope creep during implementation and set expectations with stakeholders
-
-### User Stories
-Write user stories in standard format: "As a [user type], I want [capability] so that [benefit]"
-
-Guidelines:
-- The user type should be specific enough to be meaningful ("enterprise admin" not just "user")
-- The capability should describe what they want to accomplish, not how
-- The benefit should explain the "why" — what value does this deliver
-- Include edge cases: error states, empty states, boundary conditions
-- Include different user types if the feature serves multiple personas
-- Order by priority — most important stories first
-
-Example:
-- "As a team admin, I want to configure SSO for my organization so that my team members can log in with their corporate credentials"
-- "As a team member, I want to be automatically redirected to my company's SSO login so that I do not need to remember a separate password"
-- "As a team admin, I want to see which members have logged in via SSO so that I can verify the rollout is working"
-
-### Requirements
-
-**Must-Have (P0)**: The feature cannot ship without these. These represent the minimum viable version of the feature. Ask: "If we cut this, does the feature still solve the core problem?" If no, it is P0.
-
-**Nice-to-Have (P1)**: Significantly improves the experience but the core use case works without them. These often become fast follow-ups after launch.
-
-**Future Considerations (P2)**: Explicitly out of scope for v1 but we want to design in a way that supports them later. Documenting these prevents accidental architectural decisions that make them hard later.
-
-For each requirement:
-- Write a clear, unambiguous description of the expected behavior
-- Include acceptance criteria (see below)
-- Note any technical considerations or constraints
-- Flag dependencies on other teams or systems
-
-### Open Questions
-- Questions that need answers before or during implementation
-- Tag each with who should answer (engineering, design, legal, data, stakeholder)
-- Distinguish between blocking questions (must answer before starting) and non-blocking (can resolve during implementation)
-
-### Timeline Considerations
-- Hard deadlines (contractual commitments, events, compliance dates)
-- Dependencies on other teams' work or releases
-- Suggested phasing if the feature is too large for one release
-
-## User Story Writing
-
-Good user stories are:
-- **Independent**: Can be developed and delivered on their own
-- **Negotiable**: Details can be discussed, the story is not a contract
-- **Valuable**: Delivers value to the user (not just the team)
-- **Estimable**: The team can roughly estimate the effort
-- **Small**: Can be completed in one sprint/iteration
-- **Testable**: There is a clear way to verify it works
-
-### Common Mistakes in User Stories
-- Too vague: "As a user, I want the product to be faster" — what specifically should be faster?
-- Solution-prescriptive: "As a user, I want a dropdown menu" — describe the need, not the UI widget
-- No benefit: "As a user, I want to click a button" — why? What does it accomplish?
-- Too large: "As a user, I want to manage my team" — break this into specific capabilities
-- Internal focus: "As the engineering team, we want to refactor the database" — this is a task, not a user story
-
-## Requirements Categorization
-
-### MoSCoW Framework
-- **Must have**: Without these, the feature is not viable. Non-negotiable.
-- **Should have**: Important but not critical for launch. High-priority fast follows.
-- **Could have**: Desirable if time permits. Will not delay delivery if cut.
-- **Won't have (this time)**: Explicitly out of scope. May revisit in future versions.
-
-### Tips for Categorization
-- Be ruthless about P0s. The tighter the must-have list, the faster you ship and learn.
-- If everything is P0, nothing is P0. Challenge every must-have: "Would we really not ship without this?"
-- P1s should be things you are confident you will build soon, not a wish list.
-- P2s are architectural insurance — they guide design decisions even though you are not building them now.
-
-## Success Metrics Definition
-
-### Leading Indicators
-Metrics that change quickly after launch (days to weeks):
-- **Adoption rate**: % of eligible users who try the feature
-- **Activation rate**: % of users who complete the core action
-- **Task completion rate**: % of users who successfully accomplish their goal
-- **Time to complete**: How long the core workflow takes
-- **Error rate**: How often users encounter errors or dead ends
-- **Feature usage frequency**: How often users return to use the feature
-
-### Lagging Indicators
-Metrics that take time to develop (weeks to months):
-- **Retention impact**: Does this feature improve user retention?
-- **Revenue impact**: Does this drive upgrades, expansion, or new revenue?
-- **NPS / satisfaction change**: Does this improve how users feel about the product?
-- **Support ticket reduction**: Does this reduce support load?
-- **Competitive win rate**: Does this help win more deals?
-
-### Setting Targets
-- Targets should be specific: "50% adoption within 30 days" not "high adoption"
-- Base targets on comparable features, industry benchmarks, or explicit hypotheses
-- Set a "success" threshold and a "stretch" target
-- Define the measurement method: what tool, what query, what time window
-- Specify when you will evaluate: 1 week, 1 month, 1 quarter post-launch
-
-## Acceptance Criteria
-
-Write acceptance criteria in Given/When/Then format or as a checklist:
-
-**Given/When/Then**:
-- Given [precondition or context]
-- When [action the user takes]
-- Then [expected outcome]
-
-Example:
-- Given the admin has configured SSO for their organization
-- When a team member visits the login page
-- Then they are automatically redirected to the organization's SSO provider
-
-**Checklist format**:
-- [ ] Admin can enter SSO provider URL in organization settings
-- [ ] Team members see "Log in with SSO" button on login page
-- [ ] SSO login creates a new account if one does not exist
-- [ ] SSO login links to existing account if email matches
-- [ ] Failed SSO attempts show a clear error message
-
-### Tips for Acceptance Criteria
-- Cover the happy path, error cases, and edge cases
-- Be specific about the expected behavior, not the implementation
-- Include what should NOT happen (negative test cases)
-- Each criterion should be independently testable
-- Avoid ambiguous words: "fast", "user-friendly", "intuitive" — define what these mean concretely
-
-## Scope Management
-
-### Recognizing Scope Creep
-Scope creep happens when:
-- Requirements keep getting added after the spec is approved
-- "Small" additions accumulate into a significantly larger project
-- The team is building features no user asked for ("while we're at it...")
-- The launch date keeps moving without explicit re-scoping
-- Stakeholders add requirements without removing anything
-
-### Preventing Scope Creep
-- Write explicit non-goals in every spec
-- Require that any scope addition comes with a scope removal or timeline extension
-- Separate "v1" from "v2" clearly in the spec
-- Review the spec against the original problem statement — does everything serve it?
-- Time-box investigations: "If we cannot figure out X in 2 days, we cut it"
-- Create a "parking lot" for good ideas that are not in scope
-
-## Output Format
-
-Use markdown with clear headers. Keep the document scannable — busy stakeholders should be able to read just the headers and bold text to get the gist.
-
-## Tips
-
-- Be opinionated about scope. It is better to have a tight, well-defined spec than an expansive vague one.
-- If the user's idea is too big for one spec, suggest breaking it into phases and spec the first phase.
-- Success metrics should be specific and measurable, not vague ("improve user experience").
-- Non-goals are as important as goals. They prevent scope creep during implementation.
-- Open questions should be genuinely open — do not include questions you can answer from context.
+- Sinh PRD đầy buzzword "synergy", "leverage", "best-in-class".
+- Fill section bằng generic text khi không có input PM.
+- Auto-prioritize MoSCoW/RICE khi PM không cung cấp scoring data.
+- Skip AC vì "phức tạp quá".
+- Translate term technical sang tiếng Việt nửa vời (vd. "khả dụng" cho availability — giữ "availability").
